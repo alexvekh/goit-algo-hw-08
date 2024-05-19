@@ -17,19 +17,19 @@ def cable_connection(cables):
         heapq.heappush(heap, cable)
     
     # Витягуємо елементи впорядковано, для з'єднання
-    print("Купа кабелів:", heap)
+    connection_cost = 0
     while len(heap) > 1:
-        a = heapq.heappop(heap)
-        b = heapq.heappop(heap)
-        ab = a + b
-        print(f"З'єднуємо кабелі {a} та {b}, отримуємо {ab} та кладемо його до купи {heap}")
-        heapq.heappush(heap, ab)
-        print("У купі:", heap)
-    # Повертаємо останній об'єднаний кабель з купи
-    return heapq.heappop(heap)
+        cable_A = heapq.heappop(heap)
+        cable_B = heapq.heappop(heap)
+        connected_2_cables = cable_A + cable_B
+        connection_cost = connection_cost + connected_2_cables
+        
+        # print(f"З'єднуємо кабелі {cable_A} та {cable_B}, отримуємо {connected_2_cables} та кладемо його до купи {heap}")
+        # print(connection_cost)
+        heapq.heappush(heap, connected_2_cables)
+        # print("У купі:", heap)
+    # Повертаємо суму з'єднання всіх кабелів
+    return connection_cost
 
 cables = [4, 7, 1, 10, 3]
-connected_cable = cable_connection(cables)
-
-
-print("Загальні витрати на з'єднання:", connected_cable)
+print(cable_connection(cables))
